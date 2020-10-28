@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Hangman Game</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .lettersDisp{
+                font-size: 40px;
+                font-style: normal;
+                font-family: "Times New Roman", Times, serif;
+                text-transform: uppercase;
+
+            }
+        </style>
+        <script>
+            function visguess(guess) {
+                if (exremainingLetters > 0 && exguessLeft !== 0) {
+                    imgparts = [
+                        "images/hung.png",
+                        "images/leftleghung.png",
+                        "images/rightleghung.png",
+                        "images/leftarmhung.png",
+                        "images/rightarmhung.png",
+                        "images/bodyhung.png",
+                        "images/headhung.png"
+                    ]
+                    // Update the game state with the guess
+                    var miss = true;
+                    for (var j = 0; j < exword.length; j++) {
+
+                        if (exword[j] === guess) {
+                            exanswerArray[j] = guess;
+                            exremainingLetters--;
+                            miss = false;
+                            wordstr = exanswerArray.join(' ');
+                            document.getElementById("guessed").innerHTML = "<p>" + wordstr + "</p>";
+                        }
+
+                    }
+                    //checks to see if they missed a letter and counts down the guesses
+                    if (miss == true) {
+                        exguessLeft--;
+                        document.getElementById("hangimage").src = imgparts[exguessLeft];
+                        console.log(exguessLeft);
+                        if (exguessLeft == 0)
+                            alert("You lost")
+                    }
+                    if (exanswerArray.indexOf("_") < 0) {
+                        alert("You won!")
+                        console.log(exword.indexOf("_"))
+                    }
+
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div>Let's Play</div>
+        <table>
+            <tr><td colspan="3"><img src="images/nonehung.png" alt="" id ="hangimage"/></td></tr>
+            <tr><td><span id="guessed" class="lettersDisp"> </span></td><td><input type="text" id="myguess" class="lettersDisp"></td><td></td></tr>
+            <tr><td></td><td><button onclick="visguess(document.getElementById('myguess').value)" class="lettersDisp">Guess</button></td><td></td></tr>
+        </table>
+        <script>
+
+            // Create an array of words
+            var words = [
+                "javascript",
+                "computer",
+                "modem",
+                "driver",
+                "website",
+                "html",
+                "internet",
+                "apache",
+                "bootstrapping",
+                "byte",
+                "cookie",
+                "daemon",
+                "default",
+                "ethernet",
+                "foobar",
+                "grep",
+                "gopher",
+                "kerberos",
+                "lisa",
+                "linux",
+                "liveware",
+                "pcmcia",
+                "pentium",
+                "ping",
+                "python",
+                "shareware",
+                "tomcat",
+                "trojan",
+                "unix",
+                "virus",
+                "worm"
+            ];
+            // Pick a random word
+            console.log(Math.random())
+            var exword = words[Math.floor(Math.random() * words.length)];
+            console.log(exword);
+            // Set up the answer array
+            var exanswerArray = [];
+
+            for (var i = 0; i < exword.length; i++) {
+                exanswerArray[i] = "_";
+            }
+            wordstrint = exanswerArray.join(' ');
+            document.getElementById("guessed").innerHTML = "<p>" + wordstrint + "</p>";
+            //document.getElementById("guessed").innerHTML = exanswerArray;
+            var exremainingLetters = exword.length;
+            var exguessLeft = 7;
+
+        </script>
+    </body>
+</html>

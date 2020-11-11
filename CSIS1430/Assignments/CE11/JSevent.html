@@ -1,0 +1,85 @@
+<html>
+    <head>
+
+        <script type="text/javascript">
+
+
+            var questions = [{"question": "What is your favorite drink", "ans1": "Coke", "ans2": "Pepsi", "val1": 1, "val2": 0},
+                {"question": "What is your favorite city", "ans1": "Salt Lake", "ans2": "Bei Jing", "val1": 1, "val2": 0},
+                {"question": "What is your favorite game", "ans1": "Football", "ans2": "Soccer", "val1": 1, "val2": 0}, 
+                {"question": "What is your favorite movie", "ans1": "DC", "ans2": "Marvel", "val1": 1, "val2": 0}]
+
+            var questionNum = 0
+
+            var total = 0
+
+            function sayHello() {
+                alert("Hello World")
+            }
+
+
+
+            function over() {
+                document.querySelector("#mousereport").innerHTML = "Mouse Over";
+            }
+
+            function out() {
+                document.querySelector("#mousereport").innerHTML = "Mouse Out";
+            }
+
+            function nextQuestion(ans) {
+                
+                total = total + parseInt(ans);
+                
+                console.log(ans)
+                console.log(questionNum);
+                console.log(parseInt(ans))
+                console.log(total);
+                
+                questionspot = document.querySelector("#questions");
+                
+                if (questionNum > 3) {
+
+                    questionspot.innerHTML = "Your total is :" + total;
+
+                } else {
+
+                    questString = "<h6>Question " + (questionNum + 2) + ":</h6>" +
+                            "<p>" + questions[questionNum].question + "</p>" +
+                            "<input type=\"radio\" onchange=\"nextQuestion(this.value)\" value=" + questions[questionNum].val1 + ">" + questions[questionNum].ans1 + "<br>" +
+                            "<input type=\"radio\" onchange=\"nextQuestion(this.value)\" value=" + questions[questionNum].val2 + ">" + questions[questionNum].ans2;
+                    questionspot.innerHTML = questString;
+                }
+
+                questionNum++;
+            }
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <p>Click the following button and see result</p>
+
+        <form>
+            <input type="button" onclick="sayHello()" value="Say Hello" />
+        </form>
+
+        <p>Bring your mouse inside the division to see the result:</p>
+
+        <div onmouseover="over()" onmouseout="out()">
+            <h2 id = "mousereport"> This is inside the division </h2>
+        </div>
+        
+
+
+        <div id="questions">
+            <h6>Question 1:</h6>
+            <p>What is your favorite color?</p>
+            <input type="radio" onchange="nextQuestion(this.value)" value=0>Red<br>
+            <input type="radio" onchange="nextQuestion(this.value)" value=1>Blue
+        </div>
+
+    </body>
+</html>
